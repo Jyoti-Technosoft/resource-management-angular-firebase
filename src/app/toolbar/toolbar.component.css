@@ -1,11 +1,7 @@
-
 .example-spacer {
     flex: 1 1 auto;
-  }
-#icon:hover{
-    color:coral;
 }
 
-
-  
-
+#icon:hover {
+    color: coral;
+}

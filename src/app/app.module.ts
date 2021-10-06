@@ -60,7 +60,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { initializeApp } from "firebase/app";
 import { AngularFireModule, FirebaseApp } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { ServicesService } from './services.service'
+import { ServicesService } from './services.service';
+import { AddDetailComponent } from './add-detail/add-detail.component'
 
 export const firebase = !FirebaseApp.length ? initializeApp(environment.firebaseConfig) : FirebaseApp;
 
@@ -72,6 +73,7 @@ export const firebase = !FirebaseApp.length ? initializeApp(environment.firebase
     TableComponent,
     ViewComponent,
     ConfigProgressBarComponent,
+    AddDetailComponent,
   
   ],
   imports: [

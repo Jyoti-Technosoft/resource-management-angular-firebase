@@ -22,7 +22,10 @@ export class ServicesService {
     invoiceno: new FormControl(''),
     companyName: new FormControl(''),
     sellerName: new FormControl(''), 
-    ram: new FormControl(false)
+    date: new FormControl(''),
+    ram: new FormControl(''),
+    ramWarranty: new FormControl(''),
+    ramSize: new FormControl('')
 })
 
   computerList: any;
@@ -39,12 +42,4 @@ export class ServicesService {
       })
     }
 
-    // createCoffeeOrder(data) {
-    //   return new Promise<any>((resolve, reject) =>{
-    //       this.firestore
-    //           .collection("coffeeOrders")
-    //           .add(data)
-    //           .then(res => {}, err => reject(err));
-    //   });
-  // }
 }

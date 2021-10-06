@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { ServicesService } from "../services.service";
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { ServicesService } from "../services.service";
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: 'app-add-detail',
+  templateUrl: './add-detail.component.html',
+  styleUrls: ['./add-detail.component.scss']
 })
-export class FormComponent implements OnInit {
-  courses: any;
+export class AddDetailComponent implements OnInit {
+ courses: any;
   invoiceValue!: string;
   ramValue!: string;
   companyNameValue!: string;
   sellerNameValue!: string;
   ramSizeValue!: number;
   ramWarrantyValue!: string;
-  dateValue!: any;
+  dateValue!: Date;
   constructor(private fb: FormBuilder,public firebase: AngularFireDatabase,public servicesService:ServicesService ) { 
     firebase.list('/courses')
     .valueChanges().subscribe(courses =>{
@@ -89,17 +89,17 @@ export class FormComponent implements OnInit {
     // this.computerList = this.firebase.list()
   }
   onFormSubmit(): void {
-    this.insertData(); 
-    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,date:this.dateValue,sellerName:this.sellerNameValue,ramValue:this.ramValue,ramSize:this.ramSizeValue})
+    // this.insertData(); 
+    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,date:this.dateValue,sellerName:this.sellerNameValue,ram:this.ramValue,ramWarranty:this.ramWarrantyValue,ramSize:this.ramSizeValue})
     // this.firebase.list('courses').push({})
     // this.firebase.list('courses').push({})
     // this.firebase.list('courses').push({})
     // this.firebase.list('courses').push({ramSize:this.ramSize})
     // this.firebase.list('courses').push({ramWarranty:this.ramWarranty})
-    this.servicesService.form.value.computerList = this.computerList;
-      let data = this.servicesService.form.value;
+    // this.servicesService.form.value.computerList = this.computerList;
+    //   let data = this.servicesService.form.value;
       
-     this.servicesService.insertData();
+    //  this.servicesService.insertData();
   } 
   resetForm() { 
     this.userForm.reset();

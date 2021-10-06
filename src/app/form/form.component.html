@@ -14,7 +14,7 @@
                         <div class="col-6">
                             <mat-form-field style="padding-left: 20px;" appearance="outline">
                                 <mat-label>Invoice No</mat-label>
-                                <input matInput placeholder="Invoice No*" formControlName="invoiceno" (keypress)="checkInvoiceNo($event,'invoiceno')">
+                                <input matInput placeholder="Invoice No*" formControlName="invoiceno" [(ngModel)]="invoiceValue" (keypress)="checkInvoiceNo($event,'invoiceno')">
                                 <mat-error *ngIf="userForm.controls['invoiceno'].errors?.required">{{getErrorMessage("Invoice No")}}</mat-error>
                             </mat-form-field>
                         </div>
@@ -32,7 +32,7 @@
 
                             <mat-form-field style="padding-left: 20px;" appearance="outline">
                                 <mat-label>Computer Name</mat-label>
-                                <input matInput placeholder="Company Name*" formControlName="companyName" (keypress)="checkcompanyName($event ,'companyName')">
+                                <input matInput placeholder="Company Name*" formControlName="companyName" [(ngModel)]="companyNameValue" (keypress)="checkcompanyName($event ,'companyName')">
                                 <mat-error *ngIf="userForm.controls['companyName'].errors?.required">{{getErrorMessage("Computer Name")}}</mat-error>
                             </mat-form-field>
 
@@ -94,4 +94,6 @@
             </mat-card-content>
         </ng-container>
     </mat-card>
+
+
 </div>
