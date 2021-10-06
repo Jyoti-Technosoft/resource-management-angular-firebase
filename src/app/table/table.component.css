@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+  }
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  .button-class{
+    position: absolute;
+    left:73rem;
+    
+  }
+  .c{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+  }
+  .maintain
+  {
+    background-color: blue;
+    border: 2px solid springgreen;
+    width:500px;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
