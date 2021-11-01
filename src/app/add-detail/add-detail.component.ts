@@ -4,12 +4,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { ActivatedRoute, Router } from "@angular/router";
 
-export interface Tile {
-  color: string;
-  cols: number;
-  rows: number;
-  text: string;
-}
 
 @Component({
   selector: 'app-add-detail',
@@ -66,7 +60,6 @@ export class AddDetailComponent implements OnInit {
 
 
   getErrorMessage(colName: any) {
-    // console.log("colName",colName);
     return colName+" is mandatory";
   }
 
@@ -117,11 +110,10 @@ export class AddDetailComponent implements OnInit {
 
 
   resetForm() { 
-    this.userForm.reset();
+    this.servicesService.form.reset();
   } 
 
   get invoiceno() {
-    console.log("yes")
     return this.servicesService.form.get('invoiceno');
   }
 

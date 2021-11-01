@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
 import { ServicesService } from "../services.service";
 import { Data } from '@angular/router';
 export interface PeriodicElement {
@@ -30,6 +32,12 @@ export class TableComponent implements OnInit {
     'action'
   ]
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  length = 1000;
+  pageSize = 10;
+  pageSizeOptions: number[] = [5, 10, 25, 100];
+
+
   constructor(public servicesService:ServicesService) { 
    
   }
@@ -42,7 +50,8 @@ export class TableComponent implements OnInit {
         this.computerData.push(a as Data);
       });
       this.dataSource = new MatTableDataSource(this.computerData);
-      });
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   deleteRecord(index: any, id: string) {
@@ -50,6 +59,11 @@ export class TableComponent implements OnInit {
     data.splice(index, 1);
     this.servicesService.deleteComputerRecord(id);
     this.computerData=[]; 
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }
