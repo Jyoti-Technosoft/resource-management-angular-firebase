@@ -2,13 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { ServicesService } from "../services.service";
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { ActivatedRoute, Router } from "@angular/router";
+
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
 @Component({
   selector: 'app-add-detail',
   templateUrl: './add-detail.component.html',
   styleUrls: ['./add-detail.component.scss']
 })
+
 export class AddDetailComponent implements OnInit {
- courses: any;
+  courses: any;
   invoiceValue!: string;
   ramValue!: string;
   companyNameValue!: string;
@@ -16,35 +26,44 @@ export class AddDetailComponent implements OnInit {
   ramSizeValue!: number;
   ramWarrantyValue!: string;
   dateValue!: Date;
-  constructor(private fb: FormBuilder,public firebase: AngularFireDatabase,public servicesService:ServicesService ) { 
+  computerList: any = []; 
+
+
+  constructor(private fb: FormBuilder,public firebase: AngularFireDatabase,public servicesService:ServicesService,private actRoute: ActivatedRoute,  private router: Router ) { 
     firebase.list('/courses')
     .valueChanges().subscribe(courses =>{
       this.courses = courses;
       console.log(this.courses);
     });
   }
+
   ngOnInit(): void {  
+    const id = this.actRoute.snapshot.paramMap.get('id');
+    if(id){
+      this.servicesService.getSelectedComputer(id).valueChanges().subscribe(data => {
+        this.userForm.patchValue(data);
+        console.log("data",data);
+        this.invoiceValue = data.invoiceno;
+        this.ramValue = data.ram;
+        this.companyNameValue = data.computerName;
+        this.ramWarrantyValue = data.ramWarranty;
+        this.sellerNameValue = data.sellerName;
+        this.dateValue = new Date(data.purchaseDate);
+        this.ramSizeValue = data.ramSize;
+      });
+    }
   }
-  // computerList : AngularFireList <any>;
+
   userForm: FormGroup = new FormGroup({
     invoiceno : new FormControl('', [Validators.required]),
-    date : new FormControl(''),
     companyName : new FormControl('', [Validators.required]),
     sellerName : new FormControl('', [Validators.required]),
     ram : new FormControl('', [Validators.required]),
-    ramSize: new FormControl(''),
-    ramWarranty: new FormControl(''),
+    // ramSize: new FormControl(''),
+    // date : new FormControl(''),
+    // ramWarranty: new FormControl(''),
   });
-  computerList: any = [];
 
-  insertData(){
-    this.computerList.push({
-      computerName: "Aoc",
-      Invoiceno: "123456",
-      sellerName: "Rahul",
-      Ramwarranty: "10-10-2021",
-    })
-  }
 
   getErrorMessage(colName: any) {
     // console.log("colName",colName);
@@ -85,23 +104,37 @@ export class AddDetailComponent implements OnInit {
     }
     return true;
   }
-  getData(){
-    // this.computerList = this.firebase.list()
-  }
+
+
   onFormSubmit(): void {
-    // this.insertData(); 
-    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,date:this.dateValue,sellerName:this.sellerNameValue,ram:this.ramValue,ramWarranty:this.ramWarrantyValue,ramSize:this.ramSizeValue})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({ramSize:this.ramSize})
-    // this.firebase.list('courses').push({ramWarranty:this.ramWarranty})
-    // this.servicesService.form.value.computerList = this.computerList;
-    //   let data = this.servicesService.form.value;
-      
-    //  this.servicesService.insertData();
+    let date = this.dateValue.getDate();
+    let year = this.dateValue.getFullYear();
+    let month = this.dateValue.getMonth();
+    console.log("date",date,"year",year,"month",month);
+    let newdate = year + "/" + month + "/" + date;
+    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,purchaseDate:newdate,sellerName:this.sellerNameValue,ram:this.ramValue,ramWarranty:this.ramWarrantyValue,ramSize:this.ramSizeValue})      
   } 
+
+
   resetForm() { 
     this.userForm.reset();
-} 
+  } 
+
+  get invoiceno() {
+    console.log("yes")
+    return this.servicesService.form.get('invoiceno');
+  }
+
+  get companyName() {
+    return this.servicesService.form.get('companyName');
+  }
+
+  get sellerName() {
+    return this.servicesService.form.get('sellerName');
+  }
+
+  get ram() {
+    return this.servicesService.form.get('ram');
+  }  
+
 }

@@ -1,0 +1,20 @@
+[
+    {"name" : "facebook", "image" : "https://via.placeholder.com/150" , "version": "2.21.190"},
+    {"name" : "whatsapp", "image" : "https://via.placeholder.com/150" , "version": "2.21.190"},
+    {"name" : "instagram", "image" : "https://via.placeholder.com/150", "version": "2.21.190"},
+    {"name" : "twitter", "image" : "https://via.placeholder.com/150",  "version": "2.21.190"},
+    {"name" : "snapchat", "image" : "https://via.placeholder.com/150", "version": "2.21.190"},
+    {"name" : "vchat", "image" : "https://via.placeholder.com/150", "version": "2.21.190"},
+    {"name" : "chrome", "image" : "https://via.placeholder.com/150", "version": "2.21.190"},
+    {"name" : "vscode", "image" : "https://via.placeholder.com/150"},
+    {"name" : "notepad++", "image" : "https://via.placeholder.com/150"},
+    {"name" : "jiosavan", "image" : "https://via.placeholder.com/150"},
+    {"name" : "resso", "image" : "https://via.placeholder.com/150"},
+    {"name" : "skype", "image" : "https://via.placeholder.com/150"},
+    {"name" : "Google Maps", "image" : "https://via.placeholder.com/150"},
+    {"name" : "YouTube", "image" : "https://via.placeholder.com/150"},
+    {"name" : "TikTok", "image" : "https://via.placeholder.com/150"},
+    {"name" : "Messenger", "image" : "https://via.placeholder.com/150"},
+    {"name" : "Netflix", "image" : "https://via.placeholder.com/150"},
+    {"name" : "Amazon", "image" : "https://via.placeholder.com/150"}
+]

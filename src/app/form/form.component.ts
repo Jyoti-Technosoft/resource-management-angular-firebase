@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { ServicesService } from "../services.service";
+import { ActivatedRoute, Router } from "@angular/router";
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
 })
 export class FormComponent implements OnInit {
+  editForm!: FormGroup;
   courses: any;
   invoiceValue!: string;
   ramValue!: string;
@@ -16,7 +18,7 @@ export class FormComponent implements OnInit {
   ramSizeValue!: number;
   ramWarrantyValue!: string;
   dateValue!: any;
-  constructor(private fb: FormBuilder,public firebase: AngularFireDatabase,public servicesService:ServicesService ) { 
+  constructor(private fb: FormBuilder,public firebase: AngularFireDatabase,public servicesService:ServicesService, private actRoute: ActivatedRoute,  private router: Router) { 
     firebase.list('/courses')
     .valueChanges().subscribe(courses =>{
       this.courses = courses;
@@ -24,6 +26,11 @@ export class FormComponent implements OnInit {
     });
   }
   ngOnInit(): void {  
+    const id = this.actRoute.snapshot.paramMap.get('id');
+    this.servicesService.getSelectedComputer(id).valueChanges().subscribe(data => {
+      this.servicesService.form.setValue(data)
+      console.log()
+    });
   }
   // computerList : AngularFireList <any>;
   userForm: FormGroup = new FormGroup({
@@ -37,17 +44,8 @@ export class FormComponent implements OnInit {
   });
   computerList: any = [];
 
-  insertData(){
-    this.computerList.push({
-      computerName: "Aoc",
-      Invoiceno: "123456",
-      sellerName: "Rahul",
-      Ramwarranty: "10-10-2021",
-    })
-  }
 
   getErrorMessage(colName: any) {
-    // console.log("colName",colName);
     return colName+" is mandatory";
   }
 
@@ -85,23 +83,12 @@ export class FormComponent implements OnInit {
     }
     return true;
   }
-  getData(){
-    // this.computerList = this.firebase.list()
-  }
+
   onFormSubmit(): void {
-    this.insertData(); 
-    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,date:this.dateValue,sellerName:this.sellerNameValue,ramValue:this.ramValue,ramSize:this.ramSizeValue})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({})
-    // this.firebase.list('courses').push({ramSize:this.ramSize})
-    // this.firebase.list('courses').push({ramWarranty:this.ramWarranty})
-    this.servicesService.form.value.computerList = this.computerList;
-      let data = this.servicesService.form.value;
-      
-     this.servicesService.insertData();
+    this.firebase.list('courses').push({invoiceno:this.invoiceValue,computerName:this.companyNameValue,date:this.dateValue,sellerName:this.sellerNameValue,ramValue:this.ramValue,ramSize:this.ramSizeValue})    
+    this.resetForm();
   } 
   resetForm() { 
-    this.userForm.reset();
+    this.servicesService.form.reset();
 } 
 }

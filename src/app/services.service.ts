@@ -1,23 +1,18 @@
 import { Injectable } from '@angular/core';
-// import { getDatabase, ref, set  } from "firebase/database";
-// import { AngularFireDatabase} from '@angular/fire/database';
-// import { provideFirebaseApp, getApp, initializeApp, FirebaseApp } from '@angular/fire/app';
-// import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-// import { environment } from '../environments/environment';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
-import { FormControl, FormGroup } from "@angular/forms";
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireDatabase, AngularFireList,AngularFireObject } from '@angular/fire/compat/database';
+import { FormControl, FormGroup , Validators } from "@angular/forms";
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
-// const database = getDatabase();
-
-
-
 export class ServicesService {
+  courses: any; 
+  computerList!: AngularFireList<any>;
+  computersList!: AngularFireObject<any>;
+  constructor(public firebase: AngularFireDatabase) { 
 
-  constructor(public firebase: AngularFireDatabase,public firestore: AngularFirestore) { }
+  }
   form = new FormGroup({        
     invoiceno: new FormControl(''),
     companyName: new FormControl(''),
@@ -28,18 +23,26 @@ export class ServicesService {
     ramSize: new FormControl('')
 })
 
-  computerList: any;
     getData(){
-      // this.computerList = this.firebase.list()
+      this.courses = this.firebase.list('courses');
+      return this.courses;
     }
+    
+    getSelectedComputer(id: any) {
+      this.computersList = this.firebase.object('courses/' + id);
+      console.log("selected computer",this.computersList);
+      return this.computersList;
+    }  
 
-    insertData(){
-      this.computerList.push({
-        computerName: "Aoc",
-        Invoiceno: "123456",
-        sellerName: "Rahul",
-        Ramwarranty: "10-10-2021",
+    deleteComputerRecord(key: string){
+      this.courses = this.firebase.object('courses/' + key);
+      this.courses.remove()
+      .catch((error: any) => {
+      this.errorMgmt(error);
       })
     }
+  errorMgmt(error: any) {
+    throw new Error('Method not implemented.');
+  }
 
 }

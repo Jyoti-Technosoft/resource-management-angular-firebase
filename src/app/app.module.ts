@@ -62,6 +62,8 @@ import { AngularFireModule, FirebaseApp } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ServicesService } from './services.service';
 import { AddDetailComponent } from './add-detail/add-detail.component'
+import { HttpClientModule } from '@angular/common/http';
+import { DetailsComponent } from './details/details.component';
 
 export const firebase = !FirebaseApp.length ? initializeApp(environment.firebaseConfig) : FirebaseApp;
 
@@ -74,6 +76,7 @@ export const firebase = !FirebaseApp.length ? initializeApp(environment.firebase
     ViewComponent,
     ConfigProgressBarComponent,
     AddDetailComponent,
+    DetailsComponent,
   
   ],
   imports: [
@@ -133,6 +136,7 @@ export const firebase = !FirebaseApp.length ? initializeApp(environment.firebase
     ScrollingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule
     // provideFirebaseApp(() => firebase),

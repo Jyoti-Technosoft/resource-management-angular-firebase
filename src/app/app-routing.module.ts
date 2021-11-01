@@ -7,6 +7,10 @@ import { ViewComponent } from './view/view.component';
 
 const routes: Routes = [
   {
+    path: '',
+    component: AddDetailComponent,
+  },
+  {
     path: 'add-details',
     component: AddDetailComponent,
   },
@@ -17,6 +21,10 @@ const routes: Routes = [
   {
     path: 'view',
     component: ViewComponent,
+  },
+  {
+    path: 'edit-details/:id',
+    component: AddDetailComponent,
   }
 ];
 
