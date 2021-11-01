@@ -32,6 +32,7 @@ export class TableComponent implements OnInit {
     'action'
   ]
 
+  @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   length = 1000;
   pageSize = 10;
@@ -51,6 +52,7 @@ export class TableComponent implements OnInit {
       });
       this.dataSource = new MatTableDataSource(this.computerData);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
