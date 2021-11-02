@@ -64,6 +64,7 @@ import { ServicesService } from './services.service';
 import { AddDetailComponent } from './add-detail/add-detail.component'
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsComponent } from './details/details.component';
+import { EditdetailsComponent } from './editdetails/editdetails.component';
 
 export const firebase = !FirebaseApp.length ? initializeApp(environment.firebaseConfig) : FirebaseApp;
 
@@ -77,6 +78,7 @@ export const firebase = !FirebaseApp.length ? initializeApp(environment.firebase
     ConfigProgressBarComponent,
     AddDetailComponent,
     DetailsComponent,
+    EditdetailsComponent,
   
   ],
   imports: [

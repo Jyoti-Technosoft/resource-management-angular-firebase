@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './form/form.component';
+import { EditdetailsComponent } from './editdetails/editdetails.component';
 import { AddDetailComponent } from './add-detail/add-detail.component';
 import { TableComponent } from './table/table.component';
 import { ViewComponent } from './view/view.component';
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'edit-details/:id',
-    component: AddDetailComponent,
+    component: EditdetailsComponent,
   }
 ];
 

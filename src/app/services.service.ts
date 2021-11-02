@@ -21,7 +21,7 @@ export class ServicesService {
     ram: new FormControl(''),
     ramWarranty: new FormControl(''),
     ramSize: new FormControl('')
-})
+  })
 
     getData(){
       this.courses = this.firebase.list('courses');
@@ -44,5 +44,14 @@ export class ServicesService {
   errorMgmt(error: any) {
     throw new Error('Method not implemented.');
   }
+
+  updateComputerRecord(key: string, records:any){
+    this.courses = this.firebase.object('courses/' + key);
+    this.courses.update(records)
+    .catch((error: any) => {
+    this.errorMgmt(error);
+    })
+  }
+  
 
 }

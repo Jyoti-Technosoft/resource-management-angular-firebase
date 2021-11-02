@@ -3,7 +3,7 @@
       <mat-card-title class="example-card-content">Add Information</mat-card-title>
     </mat-card-title-group>
     <mat-card-content>
-        <form (ngSubmit)="onFormSubmit()" [formGroup]="this.servicesService.form" class="example-form">
+        <form  (ngSubmit)="onFormSubmit()" [formGroup]="this.servicesService.form" class="example-form">
             <mat-grid-list cols="6" rowHeight="200px">
                 <mat-grid-tile [colspan]="2">
                     <mat-form-field variant="standard" class="example-full-width">
@@ -56,8 +56,8 @@
                 </mat-grid-tile>
                 <mat-grid-tile [colspan]="2">
                     <mat-card-actions class="example-full-width">
-                        <button matTooltip="Save" matTooltipPosition="above" class="example-full-width" type="submit" mat-raised-button [disabled]="" color="warn">
-                            <mat-icon>save</mat-icon>Save
+                        <button matTooltip="Update" matTooltipPosition="above" class="example-full-width" type="submit" mat-raised-button [disabled]="" color="warn">
+                            <mat-icon>save</mat-icon>Update
                         </button>
                     </mat-card-actions>
                 </mat-grid-tile>
